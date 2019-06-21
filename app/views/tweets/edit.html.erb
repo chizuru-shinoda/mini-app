@@ -1,5 +1,5 @@
 <div class="contents row">
-  <%= form_tag("/tweets/#{@tweet.id}", method: :patch ) do %>
+  <%= form_with model: @tweet do |form| %>
     <h6>
       編集
     </h6>

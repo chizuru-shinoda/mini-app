@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
 
-  before_action :move_to_index, except: :index
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @tweets = Tweet.includes(:user).order("created_at DESC").page(params[:page]).per(5)
@@ -11,6 +11,7 @@ class TweetsController < ApplicationController
 
   def create
     tweet = Tweet.create(text: tweet_params[:text], user_id:current_user.id)
+    redirect_to action: 'index'
   end
 
   def destroy
@@ -27,6 +28,7 @@ class TweetsController < ApplicationController
     if tweet.user_id == current_user.id
       tweet.update(tweet_params)
     end
+    redirect_to action: 'index'
   end
 
   def show
